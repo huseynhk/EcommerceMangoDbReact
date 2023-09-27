@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Poppins', sans-serif;
+  background-color: #dedede;
+}
+
+
+/* header */
+.navbar {
+  font-size: 20px;
+  line-height: 26px;
+  box-shadow: 0 12px 10px -10px gray;
+  border-bottom: solid gray !important;
+  background-color: #c1d5fc !important;
+}
+.nav-link {
+  font-weight: 300 !important;
+}
+
+.active {
+  border: 2px solid blue;
+  border-radius: 8px;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+/* footer */
+.footer {
+  color: white;
+  padding: 25px;
+  background: linear-gradient(to right, #b5c9f0, #5f87ff);
+}
+.footer a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+}
+
+.footer a:hover {
+  color: #ffefba;
+  border-bottom: 1px solid #ffefba;
+}
+
+
+/* notfound */
+.pnf {
+  display: flex;
+  min-height: 70vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: red;
+}
+
+.pnf-title {
+  font-size: 100px;
+  font-weight: 700;
+}
+
+.pnf-heading {
+  font-weight: normal;
+}
+
+.pnf-btn {
+  color: blue;
+  border: 2px solid blue;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 10px;
+  transition: .5s ease-in-out;
+}
+.pnf-btn:hover {
+  background-color: blue;
+  color: white;
+}
+
+/* contact */
+
+.contactus {
+  margin: 0;
+  padding: 0;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==================== */
+.product-link {
+  text-decoration: none !important;
+  color: black !important;
+}
+
+.cat-btn {
+  padding: 40px 0px;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+.cat-btn:hover {
+  background-color: #434343;
+  color: white;
+}
+
+.contactImg{
+ width: 700px;
+ height: 500px;
+ border-radius: 25px;
+ margin-top: 25px;
+ object-fit: cover;
+}
+
+
+/* dashboard */
+
+.dashboard {
+  margin-top: 100px !important;
+}
+
+.dashboard-menu h4 {
+  background-color: #434343 !important;
+  color: white;
+  padding: 20px 0px;
+}
