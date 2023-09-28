@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { AuhContext } from "../../context/authContext";
 import Layout from "../../components/Layout/Layout";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -13,6 +13,7 @@ const Login = () => {
   const { auth, setAuth } = useContext(AuhContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -43,7 +44,7 @@ const Login = () => {
           token: response.data.token
         })
         localStorage.setItem("auth", JSON.stringify(response.data))
-        navigate("/");
+        navigate(location.state || "/");
       } else {
         console.error(response);
         toast.error("Something went wrong");
