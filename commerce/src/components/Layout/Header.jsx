@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { SlBasketLoaded } from "react-icons/sl";
+import { AuhContext } from "../../context/authContext";
+import { toast } from "react-toastify";
 
 const Header = () => {
+  const { auth, setAuth } = useContext(AuhContext);
+ 
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      token: "",
+    })
+    localStorage.removeItem("auth")
+    toast.success("Logout Successfully");
+  }
+
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand logo">
-           RG_Sale
+            RG_Sale
           </Link>
           <button
             className="navbar-toggler"
@@ -43,16 +58,46 @@ const Header = () => {
                   Signup
                 </NavLink>
               </li>
-              <li className="nav-item ">
-                <NavLink
-                  to="/login"
-                  className="nav-link text-white"
-                  aria-current="page"
-                  href="#"
-                >
-                  Login
-                </NavLink>
-              </li>
+
+              {!auth.user ? (
+                <>
+                  <li className="nav-item ">
+                    <NavLink
+                      to="/register"
+                      className="nav-link text-white"
+                      aria-current="page"
+                      href="#"
+                    >
+                      Register
+                    </NavLink>
+                  </li>
+                  <li className="nav-item ">
+                    <NavLink
+                      to="/login"
+                      className="nav-link text-white"
+                      aria-current="page"
+                      href="#"
+                    >
+                      Login
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item ">
+                    <NavLink
+                      to="/login"
+                      onClick={handleLogout}
+                      className="nav-link text-white"
+                      aria-current="page"
+                      href="#"
+                    >
+                      Logout
+                    </NavLink>
+                  </li>
+                </>
+              )}
+
               <li className="nav-item ">
                 <NavLink
                   to="/category"

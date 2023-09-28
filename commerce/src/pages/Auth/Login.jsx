@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuhContext } from "../../context/authContext";
 import Layout from "../../components/Layout/Layout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const { auth, setAuth } = useContext(AuhContext);
+
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
@@ -24,13 +27,9 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const {email, password} = newUser;
+    const { email, password } = newUser;
     console.log(newUser);
-    if (
-      email.trim() === "" ||
-      password.trim() === "" 
-
-    ) {
+    if (email.trim() === "" || password.trim() === "") {
       return toast.error("All fields are required");
     }
 
@@ -38,6 +37,12 @@ const Login = () => {
       const response = await axios.post(apiUrl, newUser);
       if (response && response.data.success) {
         toast.success("User Added Successfully");
+        setAuth({
+          ...auth,
+          user: response.data.user,
+          token: response.data.token
+        })
+        localStorage.setItem("auth", JSON.stringify(response.data))
         navigate("/");
       } else {
         console.error(response);
