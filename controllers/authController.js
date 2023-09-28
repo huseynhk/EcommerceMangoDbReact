@@ -20,9 +20,9 @@ export const registerController = async (req, res) => {
     if (!address) {
       return res.send({ message: "Address is Required" });
     }
-    if (!answer) {
-      return res.send({ message: "Answer is Required" });
-    }
+    // if (!answer) {
+    //   return res.send({ message: "Answer is Required" });
+    // }
 
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
@@ -39,7 +39,7 @@ export const registerController = async (req, res) => {
       phone,
       address,
       password: hashedPassword,
-      answer,
+      // answer,
     }).save();
 
     res.status(201).send({

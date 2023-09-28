@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+
 *{
   margin: 0;
   padding: 0;
@@ -15,9 +17,9 @@ body{
 .navbar {
   font-size: 20px;
   line-height: 26px;
-  box-shadow: 0 12px 10px -10px gray;
-  border-bottom: solid gray !important;
-  background-color: #c1d5fc !important;
+  box-shadow: 0 12px 10px -10px blue;
+  border-bottom: solid blue !important;
+  background: linear-gradient(to right, #b5c9f0, #5f87ff) !important;
 }
 .nav-link {
   font-weight: 300 !important;
@@ -31,6 +33,13 @@ body{
 .navbar-brand {
   font-weight: 700;
   letter-spacing: 3px;
+}
+
+.logo{
+  font-weight: 900;
+  font-size: 140%;
+  font-family: cursive;
+  color: rgb(0, 0, 130);
 }
 
 /* footer */
@@ -131,3 +140,16 @@ body{
   color: white;
   padding: 20px 0px;
 }
+
+
+
+/* register */
+.register{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 90vh;
+  background: linear-gradient(to right, #5f87ff, #b5c9f0);
+}
+

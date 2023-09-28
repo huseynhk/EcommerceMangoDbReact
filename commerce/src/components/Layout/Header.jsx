@@ -7,7 +7,7 @@ const Header = () => {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <Link to="/" className="navbar-brand">
+          <Link to="/" className="navbar-brand logo">
            RG_Sale
           </Link>
           <button
@@ -26,47 +26,47 @@ const Header = () => {
               <li className="nav-item">
                 <NavLink
                   to="/"
-                  className="nav-link "
+                  className="nav-link text-white"
                   aria-current="page"
                   href="#"
                 >
                   Home
                 </NavLink>
               </li>
-              <li className="nav-item">
+              <li className="nav-item text-white">
                 <NavLink
                   to="/signup"
-                  className="nav-link "
+                  className="nav-link text-white"
                   aria-current="page"
                   href="#"
                 >
                   Signup
                 </NavLink>
               </li>
-              <li className="nav-item">
+              <li className="nav-item ">
                 <NavLink
                   to="/login"
-                  className="nav-link "
+                  className="nav-link text-white"
                   aria-current="page"
                   href="#"
                 >
                   Login
                 </NavLink>
               </li>
-              <li className="nav-item">
+              <li className="nav-item ">
                 <NavLink
                   to="/category"
-                  className="nav-link "
+                  className="nav-link text-white"
                   aria-current="page"
                   href="#"
                 >
                   Category
                 </NavLink>
               </li>
-              <li className="nav-item">
+              <li className="nav-item ">
                 <NavLink
                   to="/cart"
-                  className="nav-link "
+                  className="nav-link text-white"
                   aria-current="page"
                   href="#"
                 >
