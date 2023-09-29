@@ -6,17 +6,16 @@ import { toast } from "react-toastify";
 
 const Header = () => {
   const { auth, setAuth } = useContext(AuhContext);
- 
+
   const handleLogout = () => {
     setAuth({
       ...auth,
       user: null,
       token: "",
-    })
-    localStorage.removeItem("auth")
+    });
+    localStorage.removeItem("auth");
     toast.success("Logout Successfully");
-  }
-
+  };
 
   return (
     <>
@@ -84,16 +83,37 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <li className="nav-item ">
+                  <li className="nav-item dropdown">
                     <NavLink
-                      to="/login"
-                      onClick={handleLogout}
-                      className="nav-link text-white"
-                      aria-current="page"
+                      className="nav-link dropdown-toggle text-white"
                       href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      style={{ border: "none" }}
                     >
-                      Logout
+                      {auth?.user?.name}
                     </NavLink>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <NavLink
+                          to={`/dashboard/${
+                            auth?.user?.role === 1 ? "admin" : "user"
+                          }`}
+                          className="dropdown-item"
+                        >
+                          Dashboard
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          onClick={handleLogout}
+                          to="/login"
+                          className="dropdown-item"
+                        >
+                          Logout
+                        </NavLink>
+                      </li>
+                    </ul>
                   </li>
                 </>
               )}

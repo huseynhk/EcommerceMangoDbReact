@@ -4,16 +4,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const Register = () => {
+const ForgotPassword = () => {
   const [newUser, setNewUser] = useState({
-    name: "",
     email: "",
-    password: "",
-    phone: "",
-    address: "",
     answer: "",
+    newPassword: "",
   });
+
   const navigate = useNavigate();
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -21,23 +20,18 @@ const Register = () => {
       ...newUser,
       [name]: value,
     });
-    // setNewUser(prevState=> ({...prevState,[name]: value}))
   };
 
-  const apiUrl = "/api/v1/auth/register";
+  const apiUrl = "/api/v1/auth/forgot-password";
   console.log("API URL:", apiUrl);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { name, email, password, phone, address, answer } = newUser;
-    console.log(newUser);
+    const { email, answer, newPassword } = newUser;
     if (
-      name.trim() === "" ||
       email.trim() === "" ||
-      password.trim() === "" ||
-      phone.trim() === "" ||
-      address.trim() === "" ||
-      answer.trim() === ""
+      answer.trim() === "" ||
+      newPassword.trim() === ""
     ) {
       return toast.error("All fields are required");
     }
@@ -56,24 +50,12 @@ const Register = () => {
       toast.error("Something went wrong");
     }
   };
-
   return (
     <>
-      <Layout title="Register">
+      <Layout title="ResetPassword">
         <div className="register">
-          <h1 className="mb-4 ">Register</h1>
+          <h1 className="mb-4 ">RESET PASSWORD</h1>
           <form className="w-25" onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <input
-                type="name"
-                name="name"
-                className="form-control"
-                placeholder="Name"
-                value={newUser.name}
-                onChange={handleInputChange}
-              />
-            </div>
-
             <div className="mb-3">
               <input
                 type="email"
@@ -86,38 +68,6 @@ const Register = () => {
             </div>
             <div className="mb-3">
               <input
-                type="password"
-                name="password"
-                className="form-control"
-                placeholder="Password"
-                value={newUser.password}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="mb-3">
-              <input
-                type="text"
-                name="phone"
-                className="form-control"
-                placeholder="Phone Number"
-                value={newUser.phone}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <input
-                type="text"
-                name="address"
-                className="form-control"
-                placeholder="Address"
-                value={newUser.address}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="mb-3">
-              <input
                 type="text"
                 name="answer"
                 className="form-control"
@@ -126,17 +76,19 @@ const Register = () => {
                 onChange={handleInputChange}
               />
             </div>
-            {/* <div className="mb-3">
+            <div className="mb-3">
               <input
-                type="text"
+                type="password"
+                name="newPassword"
                 className="form-control"
-                placeholder="What is Your Favorite hobbie"
-                required
+                placeholder="New Password"
+                value={newUser.newPassword}
+                onChange={handleInputChange}
               />
-            </div> */}
+            </div>
 
             <button type="submit" className="btn btn-primary w-100">
-              Submit
+              RESET
             </button>
           </form>
         </div>
@@ -145,4 +97,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ForgotPassword;

@@ -41,9 +41,9 @@ const Login = () => {
         setAuth({
           ...auth,
           user: response.data.user,
-          token: response.data.token
-        })
-        localStorage.setItem("auth", JSON.stringify(response.data))
+          token: response.data.token,
+        });
+        localStorage.setItem("auth", JSON.stringify(response.data));
         navigate(location.state || "/");
       } else {
         console.error(response);
@@ -56,7 +56,7 @@ const Login = () => {
   };
   return (
     <>
-      <Layout title="Register">
+      <Layout title="Login">
         <div className="register">
           <h1 className="mb-4 ">Login</h1>
           <form className="w-25" onSubmit={handleSubmit}>
@@ -81,9 +81,23 @@ const Login = () => {
               />
             </div>
 
+     
+
             <button type="submit" className="btn btn-primary w-100">
               Submit
             </button>
+
+            <div className="mt-2">
+              <button
+                type="button"
+                className="btn btn-info w-100"
+                onClick={() => {
+                  navigate("/forgot-password");
+                }}
+              >
+                Forgot Password ?
+              </button>
+            </div>
           </form>
         </div>
       </Layout>
