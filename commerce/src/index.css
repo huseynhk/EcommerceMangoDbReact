@@ -12,7 +12,9 @@ body{
   background-color: #dae9f9;
 }
 
-
+img{
+  object-fit: cover;
+}
 /* header */
 .navbar {
   font-size: 20px;
