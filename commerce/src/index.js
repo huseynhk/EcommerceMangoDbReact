@@ -4,13 +4,19 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { AuhContextProvider } from "./context/authContext";
+import { SearchContextProvider } from "./context/searchContext";
+import { CartContextProvider } from "./context/cartContext";
 import "antd/dist/reset.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuhContextProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <SearchContextProvider>
+      <CartContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CartContextProvider>
+    </SearchContextProvider>
   </AuhContextProvider>
 );

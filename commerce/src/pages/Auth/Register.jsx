@@ -11,7 +11,6 @@ const Register = () => {
     password: "",
     phone: "",
     address: "",
-    answer: "",
   });
   const navigate = useNavigate();
 
