@@ -1,39 +1,35 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import Layout from "./components/Layout/Layout";
-// import { useCart } from "../context/cart";
 import { CartContext } from "./context/cartContext";
 import { AuhContext } from "./context/authContext";
 import { useNavigate } from "react-router-dom";
-// import DropIn from "braintree-web-drop-in-react";
-import axios from "axios";
-import { toast } from "react-toastify";
 import "./styles/CartStyles.css";
 
 const CartPage = () => {
   const { cart, setCart } = useContext(CartContext);
-  const { auth, setAuth } = useContext(AuhContext);
-  const [clientToken, setClientToken] = useState("");
-  const [instance, setInstance] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { auth } = useContext(AuhContext);
   const navigate = useNavigate();
 
-  //total price
   const totalPrice = () => {
     try {
-      let total = 0;
-      cart?.map((item) => {
-        total = total + item.price;
-      });
-      return total.toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-      });
+      const total = cart?.reduce(
+        (accumulator, item) => accumulator + Number(item.price * item.count),
+        0
+      );
+
+      if (total !== undefined) {
+        return total.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+        });
+      } else {
+        return "0.00";
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  
   const removeCartItem = (pid) => {
     try {
       let myCart = cart.filter((item) => item._id !== pid);
@@ -44,6 +40,41 @@ const CartPage = () => {
     }
   };
 
+  const handleIncreament = (id) => {
+    const findProductById = cart.find((c) => c._id === id);
+
+    if (findProductById) {
+      setCart((prevState) =>
+        prevState.map((c) => {
+          if (c._id === findProductById._id) {
+            c = {
+              ...c,
+              count: c.count + 1,
+            };
+          }
+          return c;
+        })
+      );
+    }
+  };
+
+  const handleDecrement = (id) => {
+    const findProductById = cart.find((c) => c._id === id);
+   
+    if (findProductById) {
+      setCart((prevState) =>
+        prevState.map((c) => {
+          if (c._id === findProductById._id && c.count > 1) {
+            c = {
+              ...c,
+              count: c.count - 1,
+            };
+          }
+          return c;
+        })
+      );
+    }
+  };
 
   return (
     <Layout>
@@ -85,10 +116,24 @@ const CartPage = () => {
                   </div>
                   <div className="col-md-4 cart-remove-btn">
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-danger me-2"
                       onClick={() => removeCartItem(p._id)}
                     >
                       Remove
+                    </button>
+
+                    <button
+                      className="btn btn-success"
+                      onClick={() => handleIncreament(p._id)}
+                    >
+                      +
+                    </button>
+                    <h3 className="mx-2 text-primary mt-3">{p.count}</h3>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDecrement(p._id)}
+                    >
+                      -
                     </button>
                   </div>
                 </div>
@@ -135,31 +180,6 @@ const CartPage = () => {
                   )}
                 </div>
               )}
-              {/* <div className="mt-2">
-                {!clientToken || !auth?.token || !cart?.length ? (
-                  ""
-                ) : (
-                  <>
-                    <DropIn
-                      options={{
-                        authorization: clientToken,
-                        paypal: {
-                          flow: "vault",
-                        },
-                      }}
-                      onInstance={(instance) => setInstance(instance)}
-                    />
-
-                    <button
-                      className="btn btn-primary"
-                      onClick={handlePayment}
-                      disabled={loading || !instance || !auth?.user?.address}
-                    >
-                      {loading ? "Processing ...." : "Make Payment"}
-                    </button>
-                  </>
-                )}
-              </div> */}
             </div>
           </div>
         </div>

@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { CartContext } from "../context/cartContext";
 import Layout from "./../components/Layout/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "../styles/ProductDetailsStyles.css";
 
 const ProductDetails = () => {
@@ -9,13 +11,12 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
-
+  const { cart, setCart } = useContext(CartContext);
 
   useEffect(() => {
     getProduct();
   }, [params?.slug]);
 
-  
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
@@ -28,7 +29,6 @@ const ProductDetails = () => {
     }
   };
 
-  
   const getSimilarProduct = async (pid, cid) => {
     try {
       const { data } = await axios.get(
@@ -63,7 +63,18 @@ const ProductDetails = () => {
             })}
           </h6>
           <h6>Category : {product?.category?.name}</h6>
-          <button class="btn btn-secondary ms-1">ADD TO CART</button>
+          <button
+            class="btn btn-secondary ms-1"
+            onClick={() => {
+              const newCart = [...cart];
+              newCart.push(product);
+              setCart(newCart);
+              localStorage.setItem("cart", JSON.stringify(newCart));
+              toast.success("Item Added to cart");
+            }}
+          >
+            ADD TO CART
+          </button>
         </div>
       </div>
       <hr />
@@ -100,7 +111,6 @@ const ProductDetails = () => {
                   >
                     More Details
                   </button>
-       
                 </div>
               </div>
             </div>

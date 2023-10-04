@@ -2,12 +2,13 @@ import JWT from "jsonwebtoken";
 import userModel from "../models/userModel.js";
 
 export const requireSignIn = async (req, res, next) => {
+
   try {
-    const decode = JWT.verify(
-      req.headers.authorization,
-      process.env.JWT_SECRET
-    );
-    req.user = decode;
+    const token = req.headers.authorization;
+    const decode = JWT.verify(token, process.env.JWT_SECRET);
+
+    await isAdmin(res, decode._id);
+
     next();
   } catch (error) {
     console.log(error);
@@ -15,16 +16,19 @@ export const requireSignIn = async (req, res, next) => {
 };
 
 //admin acceess
-export const isAdmin = async (req, res, next) => {
+export const isAdmin = async (res, id) => {
   try {
-    const user = userModel.findById(req.user);
-    if (user && user.role === 1) {
+    const user = await userModel.findById({ _id: id });
+    console.log(user);
+    if (user.role !== 1) {
       return res.status(401).send({
         success: false,
         message: "UnAuthorized Access",
       });
     } else {
-      next();
+      return res
+        .status(200)
+        .json({ status: true, message: "This user is admin." });
     }
   } catch (error) {
     console.log(error);

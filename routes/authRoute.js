@@ -24,9 +24,7 @@ router.get("/user-auth", requireSignIn, (req, res) => {
   res.status(200).send({ ok: true });
 });
 // protect Admin route
-router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
-  res.status(200).send({ ok: true });
-});
+router.post("/admin-auth", requireSignIn);
 
 //update profile
 router.put("/profile", requireSignIn, updateProfileController);

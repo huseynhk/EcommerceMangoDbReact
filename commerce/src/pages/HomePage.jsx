@@ -174,7 +174,7 @@ const HomePage = () => {
                       className="btn btn-success ms-1"
                       onClick={() => {
                         const newCart = [...cart];
-                        newCart.push(p);
+                        newCart.push({...p, count: 1});
                         setCart(newCart);
                         localStorage.setItem("cart", JSON.stringify(newCart));
                         toast.success("Item Added to cart");
